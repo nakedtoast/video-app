@@ -1,6 +1,38 @@
-<h1>Template for a video</h1>
-
 {# 
    here you can use the Twig variable 'videodata' that gets passed from the controller. 
    it has the fields 'name' and 'file' 
 #}
+{% extends "base.html.twig" %}
+
+{% block title %}Video Details{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="/static/plyr/plyr.css" />
+{% endblock %}
+
+{% block javascripts %}
+<script src="/static/plyr/plyr.js"></script>
+<script>
+    const player = new Plyr('#player');
+</script>
+{% endblock %}
+
+{% block body %}
+<h1>{{ videodata.name }}</h1>
+<div class="row">
+   <div class="col-12 col-md-2"></div>
+   <div class="col-12 col-md-8">
+      <video id="player" playsinline controls>
+         <source src="/videofiles/{{ videodata.file }}" type="video/mp4" />
+      </video>
+   </div>
+   <div class="col-12 col-md-2"></div>
+</div>
+<div class="row">
+   <div class="col text-center mt-5">
+      <a class="btn btn-primary" href="/">back</a>
+   </div>
+</div>
+
+{% endblock %}
